@@ -1,0 +1,33 @@
+{
+    "name": "jack90908/laravel-line-pay",
+    "description": "LINE Pay for Laravel",
+    "keywords": [
+        "laravel",
+        "LINE Pay",
+        "LINE"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "require": {
+        "php": "^8.1",
+        "guzzlehttp/guzzle": "^7.0",
+        "illuminate/support": "^11.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rober\\LinePay\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rober\\LinePay\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+    },
+    "minimum-stability": "dev"
+}
