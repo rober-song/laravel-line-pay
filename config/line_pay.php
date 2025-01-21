@@ -19,5 +19,6 @@ return [
         'channel_id'                 => env('LINE_PAY_CHANNEL_ID', ''),
         'channel_secret'             => env('LINE_PAY_CHANNEL_SECRET', ''),
         'merchant_device_profile_id' => env('LINE_PAY_MERCHANT_DEVICE_PROFILE_ID', ''),
+        'create_response'            => \Rober\LinePay\Service\Response::class,
     ],
 ];

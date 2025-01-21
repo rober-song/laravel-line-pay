@@ -8,6 +8,12 @@
     ],
     "type": "library",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Rober Song",
+            "email": "jack90908@gmail.com"
+        }
+    ],
     "version": "1.0.0",
     "require": {
         "php": "^8.1",
@@ -27,7 +33,16 @@
             "Rober\\LinePay\\Tests\\": "tests/"
         }
     },
+    "laravel": {
+        "providers": [
+            "Rober\\LinePay\\LinePayProvider"
+        ],
+        "aliases": {
+            "LinePay": "Rober\\LinePay\\Facades\\LinePay"
+        }
+    },
     "scripts": {
+        "test": "phpunit"
     },
     "minimum-stability": "dev"
 }
