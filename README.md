@@ -20,3 +20,8 @@ php artisan vendor:publish --provider="Rober\LinePay\LinePayProvider"
 
 ### 設定檔案
 設定檔案在 config/line_pay.php
+
+
+### todo
+- 製作type (幣別, 付款方式, 語系, 確認網址)等等
+- 製作spy
