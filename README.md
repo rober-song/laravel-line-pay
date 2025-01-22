@@ -9,7 +9,7 @@
 ### 套件安裝
 引入 package 到 composer.json
 ```bash
-composer require rober/laravel-line-pay
+composer require rober-song/laravel-line-pay
 ```
 
 ### Laravel
