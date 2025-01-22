@@ -1,5 +1,7 @@
 ## LINE Pay for Laravel
 
+[![Tests](https://github.com/rober-song/laravel-line-pay/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rober-song/laravel-line-pay/actions)
+
 ```text
 試玩小套件
 讓LINE Pay可以快速整合到Laravel上。
