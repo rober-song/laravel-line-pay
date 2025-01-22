@@ -35,12 +35,14 @@
       "Rober\\LinePay\\Tests\\": "tests/"
     }
   },
-  "laravel": {
-    "providers": [
-      "Rober\\LinePay\\LinePayProvider"
-    ],
-    "aliases": {
-      "LinePay": "Rober\\LinePay\\Facades\\LinePay"
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Rober\\LinePay\\LinePayProvider"
+      ],
+      "aliases": {
+        "LinePay": "Rober\\LinePay\\Facades\\LinePay"
+      }
     }
   },
   "scripts": {
