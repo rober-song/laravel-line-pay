@@ -212,4 +212,9 @@ class Payment implements PaymentContract
 
         return $this->createResponse::createFromResponse($response);
     }
+
+    public static function createPayment(array $config, LinePayModel $model): PaymentContract
+    {
+        return new static($config, $model);
+    }
 }

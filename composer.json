@@ -1,48 +1,54 @@
 {
-    "name": "jack90908/laravel-line-pay",
-    "description": "LINE Pay for Laravel",
-    "keywords": [
-        "laravel",
-        "LINE Pay",
-        "LINE"
+  "name": "rober-song/laravel-line-pay",
+  "description": "LINE Pay for Laravel",
+  "keywords": [
+    "laravel",
+    "LINE Pay",
+    "LINE"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Rober Song",
+      "email": "jack90908@gmail.com"
+    }
+  ],
+  "version": "1.0.0",
+  "require": {
+    "php": "^8.2",
+    "guzzlehttp/guzzle": "^7.0",
+    "illuminate/support": "^11.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^9.9",
+    "phpunit/phpunit": "^11.3.6",
+    "pestphp/pest": "^3.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Rober\\LinePay\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Rober\\LinePay\\Tests\\": "tests/"
+    }
+  },
+  "laravel": {
+    "providers": [
+      "Rober\\LinePay\\LinePayProvider"
     ],
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Rober Song",
-            "email": "jack90908@gmail.com"
-        }
-    ],
-    "version": "1.0.0",
-    "require": {
-        "php": "^8.1",
-        "guzzlehttp/guzzle": "^7.0",
-        "illuminate/support": "^11.0"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^9.9"
-    },
-    "autoload": {
-        "psr-4": {
-            "Rober\\LinePay\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Rober\\LinePay\\Tests\\": "tests/"
-        }
-    },
-    "laravel": {
-        "providers": [
-            "Rober\\LinePay\\LinePayProvider"
-        ],
-        "aliases": {
-            "LinePay": "Rober\\LinePay\\Facades\\LinePay"
-        }
-    },
-    "scripts": {
-        "test": "phpunit"
-    },
-    "minimum-stability": "dev"
+    "aliases": {
+      "LinePay": "Rober\\LinePay\\Facades\\LinePay"
+    }
+  },
+  "scripts": {
+    "test": "pest --colors=always"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
 }

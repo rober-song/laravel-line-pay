@@ -75,13 +75,13 @@ enum OnlineApi
         return match ($this) {
             self::REQUEST => '/v3/payments/request',
             self::CONFIRM => '/v3/payments/{transactionId}/confirm',
-            self::CAPTURE => '/v3/payments/{transactionId}/refund',
-            self::VOID => '/v3/payments',
-            self::REFUND => '/v3/payments/requests/{transactionId}/check',
-            self::PAYMENT_DETAILS => '/v3/payments/authorizations/{transactionId}/capture',
-            self::CHECK_PAYMENT_STATUS => '/v3/payments/authorizations/{transactionId}/void',
-            self::CHECK_PRE_APPROVED_REG_KEY => '/v3/payments/preapprovedPay/{regKey}/payment',
-            self::PAY_PRE_APPROVED => '/v3/payments/preapprovedPay/{regKey}/check',
+            self::CAPTURE => '/v3/payments/authorizations/{transactionId}/capture',
+            self::VOID => '/v3/payments/authorizations/{transactionId}/void',
+            self::REFUND => '/v3/payments/{transactionId}/refund',
+            self::PAYMENT_DETAILS => '/v3/payments',
+            self::CHECK_PAYMENT_STATUS => '/v3/payments/requests/{transactionId}/check',
+            self::CHECK_PRE_APPROVED_REG_KEY => '/v3/payments/preapprovedPay/{regKey}/check',
+            self::PAY_PRE_APPROVED => '/v3/payments/preapprovedPay/{regKey}/payment',
             self::EXPIRE_PRE_APPROVED_REG_KEY => '/v3/payments/preapprovedPay/{regKey}/expire',
         };
     }

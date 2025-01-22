@@ -8,7 +8,7 @@ return [
     | sandbox / production
     */
 
-    'default' => env('LINE_PAY_PROVIDER', 'sandbox'),
+    'provider' => env('LINE_PAY_PROVIDER', 'sandbox'),
 
     /*
     |--------------------------------------------------------------------------

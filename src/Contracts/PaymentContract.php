@@ -2,8 +2,11 @@
 
 namespace Rober\LinePay\Contracts;
 
+use Rober\LinePay\Enums\LinePayModel;
+
 interface PaymentContract
 {
+    public static function createPayment(array $config, LinePayModel $model): self;
     public function request($params): ResponseContract;
 
     public function confirm($transactionId, $params): ResponseContract;
