@@ -5,6 +5,7 @@ namespace Rober\LinePay\Facades;
 use Illuminate\Support\Facades\Facade;
 use Rober\LinePay\Contracts\PaymentContract;
 use Rober\LinePay\Contracts\ResponseContract;
+use Rober\LinePay\Fakes\PaymentFake;
 
 /**
  * @method static ResponseContract request(array $params)
@@ -26,5 +27,17 @@ class LinePay extends Facade
     protected static function getFacadeAccessor(): string
     {
         return 'line-pay';
+    }
+
+    /**
+     * Replace the bound instance with a fake.
+     *
+     * @return PaymentFake
+     */
+    public static function fake()
+    {
+        return tap(new PaymentFake(static::$app['config']->get('line_pay.options', [])), function ($fake) {
+            static::swap($fake);
+        });
     }
 }
