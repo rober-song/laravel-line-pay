@@ -22,7 +22,6 @@ class PaymentFake implements PaymentContract, Fake
         $this->createResponse = $this->config['create_response'] ?? Response::class;
     }
 
-
     public static function createPayment(array $config, LinePayModel $model): PaymentContract
     {
         return new self($config);
@@ -35,51 +34,51 @@ class PaymentFake implements PaymentContract, Fake
 
     public function confirm($transactionId, $params): ResponseContract
     {
-        // TODO: Implement confirm() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function capture($transactionId, $params): ResponseContract
     {
-        // TODO: Implement capture() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function void($transactionId, $params = []): ResponseContract
     {
-        // TODO: Implement void() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function refund($transactionId, $params = []): ResponseContract
     {
-        // TODO: Implement refund() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function paymentDetails($params): ResponseContract
     {
-        // TODO: Implement paymentDetails() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function checkPaymentStatus($transactionId): ResponseContract
     {
-        // TODO: Implement checkPaymentStatus() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function checkPreApprovedRegKey($regKey, $params = []): ResponseContract
     {
-        // TODO: Implement checkPreApprovedRegKey() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function payPreApproved($regKey, $params): ResponseContract
     {
-        // TODO: Implement payPreApproved() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function expirePreApprovedRegKey($regKey): ResponseContract
     {
-        // TODO: Implement expirePreApprovedRegKey() method.
+        return $this->createResponse::createFromResponse(new \GuzzleHttp\Psr7\Response(body: json_encode(['returnCode' => '0000', 'returnMessage' => 'Success', 'info' => []])));
     }
 
     public function setNonce($nonce): PaymentContract
     {
-        // TODO: Implement setNonce() method.
+        return $this;
     }
 }

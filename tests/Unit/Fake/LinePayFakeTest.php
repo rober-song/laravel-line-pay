@@ -7,6 +7,19 @@ covers(PaymentContract::class);
 
 test('test fake facade', function () {
     LinePay::fake();
-    $response = LinePay::request([]);
-    expect($response->isSuccess())->toBeTrue();
+    collect([
+        'request',
+        'confirm',
+        'capture',
+        'void',
+        'refund',
+        'paymentDetails',
+        'checkPaymentStatus',
+        'checkPreApprovedRegKey',
+        'payPreApproved',
+        'expirePreApprovedRegKey',
+    ])->each(function ($method) {
+        $response = LinePay::$method(...\Illuminate\Support\Collection::times(3));
+        expect($response->isSuccess())->toBeTrue();
+    });
 });
