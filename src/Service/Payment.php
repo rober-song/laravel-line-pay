@@ -61,7 +61,7 @@ class Payment implements PaymentContract
         $api = OnlineApi::REQUEST;
 
         return $this->handleMethod(
-            method:  self::HTTP_GET,
+            method:  self::HTTP_POST,
             uri:     $api->getPath(),
             params:  $params,
             options: $api->getOptions(),

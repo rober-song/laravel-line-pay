@@ -14,7 +14,7 @@
       "email": "jack90908@gmail.com"
     }
   ],
-  "version": "v0.0.5",
+  "version": "v0.0.6",
   "require": {
     "php": "^8.2",
     "guzzlehttp/guzzle": "^7.0",

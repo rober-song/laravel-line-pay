@@ -71,7 +71,7 @@ class PaymentFake implements PaymentContract, Fake
     public function request($params): ResponseContract
     {
         return $this->handleMethod(
-            method:  self::HTTP_GET,
+            method:  self::HTTP_POST,
             uri:     OnlineApi::REQUEST->getPath(),
             params:  $params,
             options: OnlineApi::REQUEST->getOptions(),
