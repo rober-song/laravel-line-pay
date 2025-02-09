@@ -2,18 +2,14 @@
 
 [![Tests](https://github.com/rober-song/laravel-line-pay/actions/workflows/run-tests.yml/badge.svg)](https://github.com/rober-song/laravel-line-pay/actions)
 
-```text
-試玩小套件
-讓LINE Pay可以快速整合到Laravel上。
-還沒寫完
-```
+### 申請sandbox帳號
+[LINE Pay Sandbox](https://developers-pay.line.me/sandbox)
 
 ### 套件安裝
 引入 package 到 composer.json
 ```bash
 composer require rober-song/laravel-line-pay
 ```
-
 ### Laravel
 發布設定檔案
 ```bash
@@ -22,6 +18,20 @@ php artisan vendor:publish --provider="Rober\LinePay\LinePayProvider"
 
 ### 設定檔案
 設定檔案在 config/line_pay.php
+
+### 簡介
+- 透過 facade `LinePay` 來使用
+```php
+use Rober\LinePay\LinePay;
+
+$response = LinePay::request([
+    'amount' => 100,
+    'currency' => 'TWD',
+    'orderId' => 'order-123'
+    ]);
+
+return $response->getInfo();
+```
 
 ### Testing
 ```php
