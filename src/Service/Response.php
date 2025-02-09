@@ -2,6 +2,7 @@
 
 namespace Rober\LinePay\Service;
 
+use GuzzleHttp\Psr7\Request;
 use Rober\LinePay\Contracts\ResponseContract;
 use Rober\LinePay\Contracts\ResponseCreateContract;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
@@ -16,7 +17,8 @@ class Response implements ResponseContract, ResponseCreateContract
      * @throws ResponseException
      */
     public function __construct(
-        protected GuzzleResponse $response
+        protected Request $request,
+        protected GuzzleResponse $response,
     ) {
         $body = $response->getBody()->getContents();
         $this->data = json_decode($body, true) ?? [];
@@ -25,9 +27,9 @@ class Response implements ResponseContract, ResponseCreateContract
         }
     }
 
-    public static function createFromResponse(GuzzleResponse $response): self
+    public static function createFromResponse(Request $request, GuzzleResponse $response): self
     {
-        return app(static::class, ['response' => $response]);
+        return app(static::class, ['request' => $request, 'response' => $response]);
     }
 
     public function getReturnCode(): string
@@ -48,5 +50,15 @@ class Response implements ResponseContract, ResponseCreateContract
     public function isSuccess(): bool
     {
         return $this->getReturnCode() === self::SUCCESS_CODE;
+    }
+
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    public function getResponse(): GuzzleResponse
+    {
+        return $this->response;
     }
 }

@@ -3,6 +3,7 @@
 namespace Rober\LinePay\Service;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use Ramsey\Uuid\Uuid;
 use Rober\LinePay\Contracts\PaymentContract;
@@ -201,16 +202,19 @@ class Payment implements PaymentContract
     protected function handleMethod(string $method, string $uri, array $params, array $options): Response
     {
         $isQuery = $method === 'GET';
-        $paramType = $isQuery ? RequestOptions::QUERY : RequestOptions::JSON;
-
+        if ($isQuery) {
+            $uri .= '?' . http_build_query($params);
+        }
         $headers = [
             'X-LINE-Authorization-Nonce' => $this->getNonce(),
             'X-LINE-Authorization'       => $this->getSignature($uri, $params, $isQuery),
         ];
-        $response = $this->client->request($method, $uri, [$paramType => $params, 'headers' => $headers, ...$options]);
+
+        $request = new Request($method, $uri, $headers, $isQuery ? null : json_encode($params));
+        $response = $this->client->send($request, $options);
         $this->nonce = null;
 
-        return $this->createResponse::createFromResponse($response);
+        return $this->createResponse::createFromResponse($request, $response);
     }
 
     public static function createPayment(array $config, LinePayModel $model): PaymentContract

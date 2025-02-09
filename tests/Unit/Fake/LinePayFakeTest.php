@@ -1,6 +1,7 @@
 <?php
 
 use Rober\LinePay\Contracts\PaymentContract;
+use Rober\LinePay\Contracts\ResponseContract;
 use Rober\LinePay\Facades\LinePay;
 
 covers(PaymentContract::class);
@@ -8,20 +9,17 @@ covers(PaymentContract::class);
 test('模擬 fake facade', function () {
     LinePay::fake();
     collect([
-                'request',
-                'confirm',
-                'capture',
-                'void',
-                'refund',
-                'paymentDetails',
-                'checkPaymentStatus',
-                'checkPreApprovedRegKey',
-                'payPreApproved',
-                'expirePreApprovedRegKey',
-            ])->each(function ($method) {
-        $response = LinePay::$method(...\Illuminate\Support\Collection::times(3));
-        expect($response->isSuccess())->toBeTrue();
-    });
+        fn() => LinePay::request([]),
+        fn() => LinePay::confirm(100, []),
+        fn() => LinePay::capture(100, []),
+        fn() => LinePay::void(100),
+        fn() => LinePay::refund(100),
+        fn() => LinePay::paymentDetails([]),
+        fn() => LinePay::checkPaymentStatus(100),
+        fn() => LinePay::checkPreApprovedRegKey('key'),
+        fn() => LinePay::payPreApproved('key', []),
+        fn() => LinePay::expirePreApprovedRegKey('key'),
+    ])->each(fn ($fn) => expect($fn())->toBeInstanceOf(ResponseContract::class));
 });
 
 test('[info] 模擬回傳結果', function () {
