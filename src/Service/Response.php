@@ -27,7 +27,7 @@ class Response implements ResponseContract, ResponseCreateContract
 
     public static function createFromResponse(GuzzleResponse $response): self
     {
-        return new static($response);
+        return app(static::class, ['response' => $response]);
     }
 
     public function getReturnCode(): string
