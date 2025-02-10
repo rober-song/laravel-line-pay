@@ -123,7 +123,7 @@ class Payment implements PaymentContract
 
     public function checkPaymentStatus($transactionId): ResponseContract
     {
-        $api = OnlineApi::PAYMENT_DETAILS;
+        $api = OnlineApi::CHECK_PAYMENT_STATUS;
 
         return $this->handleMethod(
             api:    $api,

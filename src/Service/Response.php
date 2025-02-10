@@ -20,7 +20,7 @@ class Response implements ResponseContract, ResponseCreateContract
         protected Request $request,
         protected GuzzleResponse $response,
     ) {
-        $body = $response->getBody()->getContents();
+        $body = $response->getBody();
         $this->data = json_decode($body, true) ?? [];
         if (empty($this->data)) {
             throw new ResponseException('Response data is not json' . $body);
