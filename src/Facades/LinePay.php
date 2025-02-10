@@ -5,6 +5,7 @@ namespace Rober\LinePay\Facades;
 use Illuminate\Support\Facades\Facade;
 use Rober\LinePay\Contracts\PaymentContract;
 use Rober\LinePay\Contracts\ResponseContract;
+use Rober\LinePay\Enums\LinePayModel;
 use Rober\LinePay\Fakes\PaymentFake;
 
 /**

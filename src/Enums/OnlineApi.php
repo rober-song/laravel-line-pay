@@ -28,7 +28,13 @@ enum OnlineApi
         $path = $this->getOriginPath();
         [$replaces, $keys] = $this->compileParameterNames();
 
-        $params = array_map(fn($key) => $routeParams[$key] ?? throw RouteParamException::forMissingParameters(new Route('', $path, ['as' => $this->name]), [$key]), $keys);
+        $params = array_map(
+            fn($key) => $routeParams[$key] ?? throw RouteParamException::forMissingParameters(
+                new Route('', $path, ['as' => $this->name]),
+                [$key]
+            ),
+            $keys
+        );
         $transform = array_combine($replaces, $params);
 
         array_walk($transform, function ($param, $replace) use (&$path) {
@@ -60,6 +66,22 @@ enum OnlineApi
                 'connect_timeout' => 5,
                 'timeout'         => 60,
             ],
+        };
+    }
+
+    public function getMethod(): string
+    {
+        return match ($this) {
+            self::REQUEST,
+            self::CONFIRM,
+            self::CAPTURE,
+            self::VOID,
+            self::REFUND,
+            self::PAYMENT_DETAILS,
+            self::PAY_PRE_APPROVED,
+            self::EXPIRE_PRE_APPROVED_REG_KEY => 'POST',
+            self::CHECK_PAYMENT_STATUS,
+            self::CHECK_PRE_APPROVED_REG_KEY => 'GET',
         };
     }
 

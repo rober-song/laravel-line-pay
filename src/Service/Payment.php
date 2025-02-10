@@ -4,7 +4,6 @@ namespace Rober\LinePay\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
 use Ramsey\Uuid\Uuid;
 use Rober\LinePay\Contracts\PaymentContract;
 use Rober\LinePay\Contracts\ResponseContract;
@@ -61,10 +60,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::REQUEST;
 
         return $this->handleMethod(
-            method:  self::HTTP_POST,
-            uri:     $api->getPath(),
-            params:  $params,
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(),
+            params: $params,
         );
     }
 
@@ -73,10 +71,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::CONFIRM;
 
         return $this->handleMethod(
-            method:  self::HTTP_POST,
-            uri:     $api->getPath(['transactionId' => $transactionId]),
-            params:  $params,
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(['transactionId' => $transactionId]),
+            params: $params,
         );
     }
 
@@ -85,10 +82,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::CAPTURE;
 
         return $this->handleMethod(
-            method:  self::HTTP_POST,
-            uri:     $api->getPath(['transactionId' => $transactionId]),
-            params:  $params,
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(['transactionId' => $transactionId]),
+            params: $params,
         );
     }
 
@@ -97,10 +93,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::VOID;
 
         return $this->handleMethod(
-            method:  self::HTTP_POST,
-            uri:     $api->getPath(['transactionId' => $transactionId]),
-            params:  $params,
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(['transactionId' => $transactionId]),
+            params: $params,
         );
     }
 
@@ -109,10 +104,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::REFUND;
 
         return $this->handleMethod(
-            method:  self::HTTP_POST,
-            uri:     $api->getPath(['transactionId' => $transactionId]),
-            params:  $params,
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(['transactionId' => $transactionId]),
+            params: $params,
         );
     }
 
@@ -121,10 +115,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::PAYMENT_DETAILS;
 
         return $this->handleMethod(
-            method:  self::HTTP_POST,
-            uri:     $api->getPath(),
-            params:  $params,
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(),
+            params: $params,
         );
     }
 
@@ -133,10 +126,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::PAYMENT_DETAILS;
 
         return $this->handleMethod(
-            method:  self::HTTP_GET,
-            uri:     $api->getPath(['transactionId' => $transactionId]),
-            params:  [],
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(['transactionId' => $transactionId]),
+            params: [],
         );
     }
 
@@ -145,10 +137,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::CHECK_PRE_APPROVED_REG_KEY;
 
         return $this->handleMethod(
-            method:  self::HTTP_GET,
-            uri:     $api->getPath(['regKey' => $regKey]),
-            params:  $params,
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(['regKey' => $regKey]),
+            params: $params,
         );
     }
 
@@ -157,10 +148,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::PAY_PRE_APPROVED;
 
         return $this->handleMethod(
-            method:  self::HTTP_POST,
-            uri:     $api->getPath(['regKey' => $regKey]),
-            params:  $params,
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(['regKey' => $regKey]),
+            params: $params,
         );
     }
 
@@ -169,10 +159,9 @@ class Payment implements PaymentContract
         $api = OnlineApi::EXPIRE_PRE_APPROVED_REG_KEY;
 
         return $this->handleMethod(
-            method:  self::HTTP_POST,
-            uri:     $api->getPath(['regKey' => $regKey]),
-            params:  [],
-            options: $api->getOptions(),
+            api:    $api,
+            uri:    $api->getPath(['regKey' => $regKey]),
+            params: [],
         );
     }
 
@@ -199,7 +188,15 @@ class Payment implements PaymentContract
         return $this->nonce;
     }
 
-    protected function handleMethod(string $method, string $uri, array $params, array $options): Response
+    protected function handleMethod(OnlineApi $api, string $uri, array $params): ResponseContract
+    {
+        $request = $this->createRequest($api->getMethod(), $uri, $params);
+        $response = $this->client->send($request, $api->getOptions());
+
+        return $this->createResponse::createFromResponse($request, $response);
+    }
+
+    protected function createRequest(string $method, string $uri, array $params = []): Request
     {
         $isQuery = $method === 'GET';
         if ($isQuery) {
@@ -209,12 +206,9 @@ class Payment implements PaymentContract
             'X-LINE-Authorization-Nonce' => $this->getNonce(),
             'X-LINE-Authorization'       => $this->getSignature($uri, $params, $isQuery),
         ];
-
-        $request = new Request($method, $uri, $headers, $isQuery ? null : json_encode($params));
-        $response = $this->client->send($request, $options);
         $this->nonce = null;
 
-        return $this->createResponse::createFromResponse($request, $response);
+        return new Request($method, $uri, $headers, $isQuery ? null : json_encode($params));
     }
 
     public static function createPayment(array $config, LinePayModel $model): PaymentContract
