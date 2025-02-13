@@ -199,7 +199,7 @@ class Payment implements PaymentContract
     protected function createRequest(string $method, string $uri, array $params = []): Request
     {
         $isQuery = $method === 'GET';
-        if ($isQuery) {
+        if ($isQuery && ! empty($params)) {
             $uri .= '?' . http_build_query($params);
         }
         $headers = [
