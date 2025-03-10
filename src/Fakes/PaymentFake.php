@@ -24,11 +24,12 @@ class PaymentFake extends Payment implements PaymentContract, Fake
     /** @var array{returnCode: string, returnMessage: string, info: array}[] */
     protected array $customizedReturn = [];
 
-    public function __construct(protected array $config) {
+    public function __construct(protected array $config)
+    {
         parent::__construct($config, LinePayModel::SANDBOX);
     }
 
-    public function setReturn(string $code = null, string $message = null, array $info = []): self
+    public function setReturn(?string $code = null, ?string $message = null, array $info = []): self
     {
         $this->customizedReturn[] = [
             'returnCode'    => $code ?? self::DEFAULT_RETURN['returnCode'],

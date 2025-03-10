@@ -60,8 +60,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::REQUEST;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(),
+            api: $api,
+            uri: $api->getPath(),
             params: $params,
         );
     }
@@ -71,8 +71,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::CONFIRM;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(['transactionId' => $transactionId]),
+            api: $api,
+            uri: $api->getPath(['transactionId' => $transactionId]),
             params: $params,
         );
     }
@@ -82,8 +82,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::CAPTURE;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(['transactionId' => $transactionId]),
+            api: $api,
+            uri: $api->getPath(['transactionId' => $transactionId]),
             params: $params,
         );
     }
@@ -93,8 +93,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::VOID;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(['transactionId' => $transactionId]),
+            api: $api,
+            uri: $api->getPath(['transactionId' => $transactionId]),
             params: $params,
         );
     }
@@ -104,8 +104,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::REFUND;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(['transactionId' => $transactionId]),
+            api: $api,
+            uri: $api->getPath(['transactionId' => $transactionId]),
             params: $params,
         );
     }
@@ -115,8 +115,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::PAYMENT_DETAILS;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(),
+            api: $api,
+            uri: $api->getPath(),
             params: $params,
         );
     }
@@ -126,8 +126,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::CHECK_PAYMENT_STATUS;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(['transactionId' => $transactionId]),
+            api: $api,
+            uri: $api->getPath(['transactionId' => $transactionId]),
             params: [],
         );
     }
@@ -137,8 +137,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::CHECK_PRE_APPROVED_REG_KEY;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(['regKey' => $regKey]),
+            api: $api,
+            uri: $api->getPath(['regKey' => $regKey]),
             params: $params,
         );
     }
@@ -148,8 +148,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::PAY_PRE_APPROVED;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(['regKey' => $regKey]),
+            api: $api,
+            uri: $api->getPath(['regKey' => $regKey]),
             params: $params,
         );
     }
@@ -159,8 +159,8 @@ class Payment implements PaymentContract
         $api = OnlineApi::EXPIRE_PRE_APPROVED_REG_KEY;
 
         return $this->handleMethod(
-            api:    $api,
-            uri:    $api->getPath(['regKey' => $regKey]),
+            api: $api,
+            uri: $api->getPath(['regKey' => $regKey]),
             params: [],
         );
     }
@@ -214,5 +214,10 @@ class Payment implements PaymentContract
     public static function createPayment(array $config, LinePayModel $model): PaymentContract
     {
         return new static($config, $model);
+    }
+
+    public function getMode(): LinePayModel
+    {
+        return $this->model;
     }
 }

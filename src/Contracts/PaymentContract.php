@@ -28,4 +28,6 @@ interface PaymentContract
     public function expirePreApprovedRegKey($regKey): ResponseContract;
 
     public function setNonce($nonce): self;
+
+    public function getMode(): LinePayModel;
 }
