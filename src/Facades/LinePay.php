@@ -20,6 +20,7 @@ use Rober\LinePay\Fakes\PaymentFake;
  * @method static ResponseContract payPreApproved($regKey, array $params)
  * @method static ResponseContract expirePreApprovedRegKey($regKey)
  * @method static PaymentContract setNonce(int|string|null $nonce)
+ * @method static LinePayModel getMode()
  *
  * @see \Rober\LinePay\Service\Payment
  */
