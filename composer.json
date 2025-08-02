@@ -14,11 +14,11 @@
       "email": "jack90908@gmail.com"
     }
   ],
-  "version": "v0.0.11",
+  "version": "v0.0.12",
   "require": {
     "php": "^8.2",
     "guzzlehttp/guzzle": "^7.0",
-    "illuminate/support": "^11.0"
+    "illuminate/support": "^11.0|^12.0"
   },
   "require-dev": {
     "orchestra/testbench": "^9.9",
